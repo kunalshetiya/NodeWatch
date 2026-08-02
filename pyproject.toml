@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nodeiq"
+dynamic = ["version"]
+description = "Answers natural-language operational questions about a Linux server using real system data."
+requires-python = ">=3.10"
+
+[project.scripts]
+nodeiq = "nodeiq.cli.main:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.dynamic]
+# The single source of truth for NodeIQ's version is
+# src/nodeiq/__init__.py's __version__ — read from here, never
+# hardcoded a second time in this file (Phase 7B: "version should come
+# from one source only").
+version = { attr = "nodeiq.__version__" }
+
+[tool.pytest.ini_options]
+# Lets tests import "nodeiq" directly from src/ without installing the
+# package first — see PROJECT_RULES.md Section 1 for why the package lives
+# under src/ rather than at the repository root.
+pythonpath = ["src"]
+testpaths = ["tests"]

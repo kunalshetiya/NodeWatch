@@ -1,0 +1,92 @@
+{
+  "missing_network_section": {
+    "description": "A snapshot with no 'network' key at all (e.g. captured by an older NodeIQ version, or a collector that never ran) — the network section must degrade to unavailable, never crash the whole Summary.",
+    "snapshot": {
+      "metadata": {
+        "scan_timestamp": "2026-07-16T09:00:00+00:00",
+        "hostname": "edge-case-host",
+        "nodeiq_version": "0.1.0",
+        "collector_count": 8
+      },
+      "collection_errors": {},
+      "system": {
+        "hostname": "edge-case-host",
+        "operating_system": "Ubuntu 24.04.4 LTS",
+        "kernel_version": "6.8.0-134-generic",
+        "architecture": "x86_64",
+        "uptime_seconds": 3600.0
+      }
+    },
+    "missing_section": "network"
+  },
+  "missing_logs_section": {
+    "description": "A snapshot with no 'logs' key at all.",
+    "snapshot": {
+      "metadata": {
+        "scan_timestamp": "2026-07-16T09:00:00+00:00",
+        "hostname": "edge-case-host",
+        "nodeiq_version": "0.1.0",
+        "collector_count": 8
+      },
+      "collection_errors": {},
+      "system": {
+        "hostname": "edge-case-host",
+        "operating_system": "Ubuntu 24.04.4 LTS",
+        "kernel_version": "6.8.0-134-generic",
+        "architecture": "x86_64",
+        "uptime_seconds": 3600.0
+      }
+    },
+    "missing_section": "logs"
+  },
+  "logs_collector_ran_but_journalctl_unavailable": {
+    "description": "The logs collector ran (the key is present) but journalctl itself doesn't exist on this system — a real, documented degradation path (docs/logs_collector.md), distinct from the section being entirely absent.",
+    "snapshot": {
+      "metadata": {
+        "scan_timestamp": "2026-07-16T09:00:00+00:00",
+        "hostname": "edge-case-host",
+        "nodeiq_version": "0.1.0",
+        "collector_count": 9
+      },
+      "collection_errors": {
+        "logs": [
+          {"message": "journalctl not found", "exception_type": "ValueError"}
+        ]
+      },
+      "logs": {
+        "source": "unavailable",
+        "truncated": null,
+        "warning_count": null,
+        "error_count": null,
+        "recent_entries": []
+      }
+    },
+    "missing_section": null
+  },
+  "all_collectors_failed": {
+    "description": "Every collector section is null (e.g. every collector crashed) — the whole Summary must still be produced, with every section reported unavailable, never an exception.",
+    "snapshot": {
+      "metadata": {
+        "scan_timestamp": "2026-07-16T09:00:00+00:00",
+        "hostname": "edge-case-host",
+        "nodeiq_version": "0.1.0",
+        "collector_count": 9
+      },
+      "collection_errors": {
+        "system": [{"message": "permission denied", "exception_type": "OSError"}],
+        "cpu_memory": [{"message": "permission denied", "exception_type": "OSError"}]
+      },
+      "system": null,
+      "cpu_memory": null,
+      "processes": null,
+      "disk": null,
+      "services": null,
+      "scheduled_jobs": null,
+      "permissions": null,
+      "network": null,
+      "logs": null,
+      "users": null
+    },
+    "missing_section": null
+  }
+}
